@@ -12,10 +12,14 @@ export default [
   },
   {
     languageOptions: {
-      globals: Object.entries(globals.node).reduce((acc, [key, val]) => {
-        acc[key] = { readonly: true }
-        return acc
-      }, {}),
+      globals: {
+        ...Object.fromEntries(Object.keys(globals.node).map((key) => [key, { writable: false }])),
+        __dirname: { writable: false },
+        module: { writable: false },
+        require: { writable: false },
+        process: { writable: false },
+        global: { writable: false },
+      },
     },
   },
   pluginJs.configs.recommended,
@@ -36,15 +40,8 @@ export default [
     },
     languageOptions: {
       globals: {
-        ...Object.fromEntries(
-            Object.keys(globals.node).map((key) => [key, { readonly: true }])
-        ),
-        ...Object.fromEntries(
-            Object.keys(pluginJest.environments.globals || {}).map((key) => [
-              key,
-              { readonly: true },
-            ])
-        ),
+        ...Object.fromEntries(Object.keys(globals.node).map((key) => [key, { writable: false }])),
+        ...Object.fromEntries(Object.keys(pluginJest.environments.globals).map((key) => [key, { writable: false }])),
       },
     },
     rules: {
