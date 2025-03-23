@@ -1,32 +1,32 @@
-name: Node.js CI/CD
+name: CICD_test
 
 on:
   push:
     branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-  steps:
-    - name: 저장소 체크아웃
-      uses: actions/checkout@v3
+    steps:
+      - name: 저장소 체크아웃
+        uses: actions/checkout@v3
 
-    - name: Node.js 설치
-      uses: actions/setup-node@v3
-      with:
-        node-version: 23
+      - name: Node.js 설치
+        uses: actions/setup-node@v3
+        with:
+          node-version: 23
 
-    - name: 의존성 설치
-      run: npm ci
+      - name: 의존성 설치
+        run: npm ci
 
-    - name: Lint 실행
-      run: npm run lint
+      - name: Lint 실행
+        run: npm run lint
 
-    - name: 테스트 실행
-      run: npm test
+      - name: 테스트 실행
+        run: npm test
 
-    - name: 빌드 실행
-      run: npm run build
+      - name: 빌드 실행
+        run: npm run build
